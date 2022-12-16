@@ -6,13 +6,15 @@ function checkCashRegister(price, cash, cid) {
   let cashToGive = {};
 
   cid.forEach(function(denomination) {
-    /*Or (Since Line 8) cid.forEach(denomination => {
-    cashOnHand[denomination[0]] = Math.round(denomination[1] * 100);
-    });*/
     //console.log(denomination[0], denomination[1]);
     cashOnHand[denomination[0]] = Math.round(denomination[1] * 100);
   });
     //console.log(cashOnHand);
+
+  /*Or (Line 8-11)
+  cid.forEach(denomination => {
+    cashOnHand[denomination[0]] = Math.round(denomination[1] * 100);
+  });*/
 
     let index = DENOMINATIONS.length - 1;
 
@@ -41,17 +43,19 @@ function checkCashRegister(price, cash, cid) {
     if (amountToReturn === 0) {
       let isRegisterEmpty = true;
       Object.keys(cashOnHand).forEach(function(moneyType) {
-        /*Or (Since Line 43) Object.keys(cashOnHand).forEach(moneyType => {
-          if (cashOnHand[moneyType] > 0) {
-            isRegisterEmpty = false;
-          }
-        });*/
         //console.log(cashOnHand[moneyType]);
         if (cashOnHand[moneyType] > 0) {
           isRegisterEmpty = false;
         }
       });
       //console.log(isRegisterEmpty);
+
+      /*Or (Line 45-50)
+      Object.keys(cashOnHand).forEach(moneyType => {
+        if (cashOnHand[moneyType] > 0) {
+          isRegisterEmpty = false;
+        }
+      });*/
 
       if (isRegisterEmpty === true) {
         return {
@@ -61,17 +65,19 @@ function checkCashRegister(price, cash, cid) {
       } else {
         let changeArray = [];
         Object.keys(cashToGive).map(function(moneyType) {
-          /*Or (Since Line 63) Object.keys(cashToGive).map(moneyType => {
-            if (cashToGive[moneyType] > 0) {
-            changeArray.push([moneyType, cashToGive[moneyType] / 100]);
-          }
-        });*/
           //console.log(moneyType, cashToGive[moneyType]);
           //console.log(cashToGive[moneyType] > 0);
           if (cashToGive[moneyType] > 0) {
             changeArray.push([moneyType, cashToGive[moneyType] / 100]);
           }
         });
+
+        /*Or (Line 67-73)
+        Object.keys(cashToGive).map(moneyType => {
+          if (cashToGive[moneyType] > 0) {
+            changeArray.push([moneyType, cashToGive[moneyType] / 100]);
+          }
+        });*/
 
       return {status: "OPEN", change: changeArray}
       }
