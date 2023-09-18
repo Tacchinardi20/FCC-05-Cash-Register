@@ -7,11 +7,12 @@ function checkCashRegister(price, cash, cid) {
 
   cid.forEach(function(denomination) {
     //console.log(denomination[0], denomination[1]);
+
     cashOnHand[denomination[0]] = Math.round(denomination[1] * 100);
   });
     //console.log(cashOnHand);
 
-  /*Or (Line 8-11)
+  /*Or (Line 8-12)
   cid.forEach(denomination => {
     cashOnHand[denomination[0]] = Math.round(denomination[1] * 100);
   });*/
@@ -22,15 +23,18 @@ function checkCashRegister(price, cash, cid) {
       let moneyName = DENOMINATIONS[index][0];
       let moneyValue = DENOMINATIONS[index][1];
       //console.log(moneyName, moneyValue);
-
       //console.log(amountToReturn - moneyValue);
+
       if (amountToReturn - moneyValue > 0 && cashOnHand[moneyName], amountToReturn) {
         //console.log(DENOMINATIONS[index]);
+
         cashToGive[moneyName] = 0;
         //console.log(cashOnHand[moneyName] > 0);
+
         while (cashOnHand[moneyName] > 0 && amountToReturn - moneyValue >= 0) {
           //console.log(amountToReturn, cashOnHand[moneyName]);
           //console.log("amount to return =", amountToReturn, cashToGive);
+
           cashOnHand[moneyName] -= moneyValue;
           cashToGive[moneyName] += moneyValue;
           amountToReturn -= moneyValue;
@@ -42,15 +46,17 @@ function checkCashRegister(price, cash, cid) {
 
     if (amountToReturn === 0) {
       let isRegisterEmpty = true;
+
       Object.keys(cashOnHand).forEach(function(moneyType) {
         //console.log(cashOnHand[moneyType]);
+
         if (cashOnHand[moneyType] > 0) {
           isRegisterEmpty = false;
         }
       });
       //console.log(isRegisterEmpty);
 
-      /*Or (Line 45-50)
+      /*Or (Line 50-56)
       Object.keys(cashOnHand).forEach(moneyType => {
         if (cashOnHand[moneyType] > 0) {
           isRegisterEmpty = false;
@@ -64,25 +70,27 @@ function checkCashRegister(price, cash, cid) {
         }
       } else {
         let changeArray = [];
+
         Object.keys(cashToGive).map(function(moneyType) {
           //console.log(moneyType, cashToGive[moneyType]);
           //console.log(cashToGive[moneyType] > 0);
+
           if (cashToGive[moneyType] > 0) {
             changeArray.push([moneyType, cashToGive[moneyType] / 100]);
           }
         });
 
-        /*Or (Line 67-73)
+        /*Or (Line 74-81)
         Object.keys(cashToGive).map(moneyType => {
           if (cashToGive[moneyType] > 0) {
             changeArray.push([moneyType, cashToGive[moneyType] / 100]);
           }
         });*/
 
-      return {status: "OPEN", change: changeArray}
+        return {status: "OPEN", change: changeArray}
       }
     }
-    return {status: "INSUFFICIENT_FUNDS", change: []}
+  return {status: "INSUFFICIENT_FUNDS", change: []}
 }
 
 let result = checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
